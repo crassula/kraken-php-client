@@ -81,12 +81,11 @@ class KrakenAPI
      */
     function QueryPublic($method, array $request = array())
     {
-        // build the POST data string
-        $postdata = http_build_query($request, '', '&');
+        // build the GET query string
+        $query = http_build_query($request, '', '&');
 
         // make request
-        curl_setopt($this->curl, CURLOPT_URL, $this->url . '/' . $this->version . '/public/' . $method);
-        curl_setopt($this->curl, CURLOPT_POSTFIELDS, $postdata);
+        curl_setopt($this->curl, CURLOPT_URL, $this->url . '/' . $this->version . '/public/' . $method . '?' . $query);
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, array());
         $result = curl_exec($this->curl);
         if($result===false)
